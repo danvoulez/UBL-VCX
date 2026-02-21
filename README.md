@@ -5,6 +5,7 @@ Official VCX thin-shell repository for running UBL in product context without ve
 - No copy of `UBL-CORE` code.
 - Pulls runtime binary from `UBL-CORE` ref in `contracts/VERSIONS.lock`.
 - Runs as local PM2-managed process.
+- If `UBL-CORE` is private/internal, set `CORE_REPO_TOKEN` in `config/project.env`.
 
 ## Quick Start
 

@@ -24,8 +24,13 @@ require_cmd cargo
 TMP_DIR="$ROOT_DIR/.cache/core-src"
 rm -rf "$TMP_DIR"
 
+CLONE_REPO="$CORE_REPO"
+if [ -n "${CORE_REPO_TOKEN:-}" ] && [[ "$CLONE_REPO" == https://github.com/* ]]; then
+  CLONE_REPO="https://${CORE_REPO_TOKEN}@${CLONE_REPO#https://}"
+fi
+
 echo "[info] cloning $CORE_REPO @ $CORE_REF"
-git clone --depth 1 --branch "$CORE_REF" "$CORE_REPO" "$TMP_DIR"
+git clone --depth 1 --branch "$CORE_REF" "$CLONE_REPO" "$TMP_DIR"
 
 pushd "$TMP_DIR" >/dev/null
 echo "[info] building crate ${CORE_BINARY_CRATE:-ubl_gate}"

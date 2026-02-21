@@ -12,10 +12,26 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Validate lock refs exist
+        env:
+          CORE_REPO_TOKEN: ${{ secrets.CORE_REPO_TOKEN }}
         run: |
           set -euo pipefail
           source contracts/VERSIONS.lock
-          git ls-remote --exit-code "$CORE_REPO" "$CORE_REF"
+          repo_url="$CORE_REPO"
+          if [ -n "${CORE_REPO_TOKEN:-}" ] && [[ "$repo_url" == https://github.com/* ]]; then
+            repo_url="https://${CORE_REPO_TOKEN}@${repo_url#https://}"
+          fi
+
+          if git ls-remote --exit-code "$repo_url" "$CORE_REF" >/dev/null 2>&1; then
+            echo "[ok] core ref exists: $CORE_REF"
+          else
+            if [ -n "${CORE_REPO_TOKEN:-}" ]; then
+              echo "[error] could not validate CORE_REF=$CORE_REF in CORE_REPO=$CORE_REPO"
+              exit 1
+            fi
+            echo "[warn] could not validate CORE_REF without credentials."
+            echo "[warn] set repository secret CORE_REPO_TOKEN when UBL-CORE is private/internal."
+          fi
 
       - name: Shell syntax checks
         run: |

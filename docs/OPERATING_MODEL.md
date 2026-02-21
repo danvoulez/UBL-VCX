@@ -4,6 +4,7 @@ This repository does not vendor UBL source code.
 
 - Runtime binary comes from `UBL-CORE` (`contracts/VERSIONS.lock`).
 - This repo owns only config, process lifecycle (PM2), deployment scripts, and validation.
+- If `UBL-CORE` is private/internal, provide `CORE_REPO_TOKEN` in `config/project.env`.
 
 ## Update Flow
 
