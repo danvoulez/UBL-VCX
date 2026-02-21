@@ -5,7 +5,7 @@ ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 LOCK_FILE="$ROOT_DIR/contracts/VERSIONS.lock"
 
 usage() {
-  echo "usage: $0 [multi|core] <new-ref>"
+  echo "usage: $0 core <new-ref>"
   exit 1
 }
 
@@ -14,9 +14,6 @@ TARGET="$1"
 NEW_REF="$2"
 
 case "$TARGET" in
-  multi)
-    sed -i.bak "s/^MULTI_REF=.*/MULTI_REF=$NEW_REF/" "$LOCK_FILE"
-    ;;
   core)
     sed -i.bak "s/^CORE_REF=.*/CORE_REF=$NEW_REF/" "$LOCK_FILE"
     ;;

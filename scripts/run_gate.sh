@@ -3,7 +3,7 @@ set -euo pipefail
 source "$(dirname "$0")/common.sh"
 
 load_lock
-BIN_PATH="$ROOT_DIR/bin/${MULTI_BINARY_NAME:-ubl-gate}"
+BIN_PATH="$ROOT_DIR/bin/${CORE_BINARY_NAME:-ubl-gate}"
 
 [ -x "$BIN_PATH" ] || {
   echo "[error] missing binary. run: make install-binary" >&2

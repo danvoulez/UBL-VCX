@@ -38,9 +38,8 @@ cp config/project.env.sample config/project.env
 
 1. Edit `contracts/VERSIONS.lock`.
 2. Prefer release tags for production:
-   - `MULTI_REF=vX.Y.Z`
    - `CORE_REF=vX.Y.Z`
-3. Optional: if you have a release binary URL, set `MULTI_BINARY_URL`.
+3. Optional: if you have a release binary URL, set `CORE_BINARY_URL`.
 
 ## 4) Install and Boot Process
 
@@ -78,7 +77,7 @@ make save
 ## 6) Upgrade Procedure (Day-2)
 
 1. Update ref:
-   - `make update-multi REF=vX.Y.Z`
+   - `make update-core REF=vX.Y.Z`
 2. Reinstall and restart:
    - `make install-binary`
    - `make restart`
@@ -99,7 +98,7 @@ make save
 ## 8) Governance Boundary
 
 1. Do not patch runtime behavior in this repo.
-2. Behavioral changes must be requested upstream (`UBL-MULTI` or `UBL-CORE`).
+2. Behavioral changes must be requested upstream (`UBL-CORE`).
 3. This repo should only own:
    - config,
    - process lifecycle,

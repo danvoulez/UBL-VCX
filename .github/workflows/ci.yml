@@ -15,7 +15,6 @@ jobs:
         run: |
           set -euo pipefail
           source contracts/VERSIONS.lock
-          git ls-remote --exit-code "$MULTI_REPO" "$MULTI_REF"
           git ls-remote --exit-code "$CORE_REPO" "$CORE_REF"
 
       - name: Shell syntax checks

@@ -1,14 +1,10 @@
-name: Update Upstreams
+name: Update Core Ref
 
 on:
   workflow_dispatch:
     inputs:
-      target:
-        description: "multi or core"
-        required: true
-        default: "multi"
       ref:
-        description: "new ref/tag/branch"
+        description: "new CORE_REF (tag or branch)"
         required: true
 
 jobs:
@@ -20,12 +16,12 @@ jobs:
       - name: Update lock ref
         run: |
           set -euo pipefail
-          ./scripts/update_refs.sh "${{ inputs.target }}" "${{ inputs.ref }}"
+          ./scripts/update_refs.sh core "${{ inputs.ref }}"
 
       - name: Create PR
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: "chore(lock): bump ${{ inputs.target }} to ${{ inputs.ref }}"
-          title: "chore(lock): bump ${{ inputs.target }} to ${{ inputs.ref }}"
+          commit-message: "chore(lock): bump core to ${{ inputs.ref }}"
+          title: "chore(lock): bump core to ${{ inputs.ref }}"
           body: "Automated lock update. CI will validate refs and shell scripts."
-          branch: "chore/bump-${{ inputs.target }}-${{ inputs.ref }}"
+          branch: "chore/bump-core-${{ inputs.ref }}"

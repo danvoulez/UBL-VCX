@@ -1,8 +1,8 @@
-.PHONY: help install-binary bootstrap start stop restart status logs save smoke update-multi update-core
+.PHONY: help install-binary bootstrap start stop restart status logs save smoke update-core
 
 help:
 	@echo "Targets:"
-	@echo "  make install-binary      # install/update ubl-gate binary from UBL-MULTI"
+	@echo "  make install-binary      # install/update ubl-gate binary from UBL-CORE"
 	@echo "  make bootstrap           # install binary + start PM2"
 	@echo "  make start               # pm2 start"
 	@echo "  make stop                # pm2 stop"
@@ -11,7 +11,6 @@ help:
 	@echo "  make logs                # pm2 logs"
 	@echo "  make save                # pm2 save"
 	@echo "  make smoke               # API smoke test"
-	@echo "  make update-multi REF=vX.Y.Z"
 	@echo "  make update-core REF=vX.Y.Z"
 
 install-binary:
@@ -40,10 +39,6 @@ save:
 
 smoke:
 	./scripts/smoke.sh
-
-update-multi:
-	@test -n "$(REF)" || (echo "use: make update-multi REF=vX.Y.Z" && exit 1)
-	./scripts/update_refs.sh multi "$(REF)"
 
 update-core:
 	@test -n "$(REF)" || (echo "use: make update-core REF=vX.Y.Z" && exit 1)

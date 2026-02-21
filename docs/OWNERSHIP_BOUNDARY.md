@@ -12,8 +12,7 @@
 ## This Repo Does Not Own
 
 1. Core behavior, trust model, pipeline semantics (`UBL-CORE`).
-2. Multiplatform runtime implementation (`UBL-MULTI`).
-3. Upstream API/protocol decisions.
+2. Upstream API/protocol decisions.
 
 ## Governance Rule
 

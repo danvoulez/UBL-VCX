@@ -5,8 +5,7 @@ This repository upgrades by changing lock refs, then reinstalling the runtime bi
 ## Upgrade Flow
 
 1. Update lock:
-   - `make update-multi REF=vX.Y.Z`
-   - optional: `make update-core REF=vX.Y.Z`
+   - `make update-core REF=vX.Y.Z`
 2. Reinstall binary:
    - `make install-binary`
 3. Restart process:

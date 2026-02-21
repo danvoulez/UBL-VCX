@@ -2,9 +2,8 @@
 
 Official VCX thin-shell repository for running UBL in product context without vendoring source code.
 
-- No copy of `UBL-CORE` or `UBL-MULTI` code.
-- Pulls runtime binary from `UBL-MULTI` ref in `contracts/VERSIONS.lock`.
-- Pins expected compatibility with `UBL-CORE` ref in `contracts/VERSIONS.lock`.
+- No copy of `UBL-CORE` code.
+- Pulls runtime binary from `UBL-CORE` ref in `contracts/VERSIONS.lock`.
 - Runs as local PM2-managed process.
 
 ## Quick Start
@@ -18,7 +17,7 @@ make smoke
 ## Upgrade
 
 ```bash
-make update-multi REF=v1.0.0
+make update-core REF=v0.1.0-core-baseline
 make install-binary
 make restart
 make smoke
