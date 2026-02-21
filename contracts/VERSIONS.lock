@@ -1,0 +1,14 @@
+# Thin-shell lock file (no vendor, no source copy)
+# Update refs here, then run: make install-binary
+MULTI_REPO=https://github.com/danvoulez/UBL-MULTI.git
+MULTI_REF=main
+
+CORE_REPO=https://github.com/LogLine-Foundation/UBL-CORE.git
+CORE_REF=main
+
+# Optional: direct binary URL from releases (preferred for production)
+# MULTI_BINARY_URL=https://github.com/danvoulez/UBL-MULTI/releases/download/v1.0.0/ubl-gate-darwin-aarch64
+
+# Fallback build target when MULTI_BINARY_URL is empty
+MULTI_BINARY_CRATE=ubl_gate
+MULTI_BINARY_NAME=ubl-gate

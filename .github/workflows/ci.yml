@@ -1,0 +1,32 @@
+name: Thin Shell CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate lock refs exist
+        run: |
+          set -euo pipefail
+          source contracts/VERSIONS.lock
+          git ls-remote --exit-code "$MULTI_REPO" "$MULTI_REF"
+          git ls-remote --exit-code "$CORE_REPO" "$CORE_REF"
+
+      - name: Shell syntax checks
+        run: |
+          set -euo pipefail
+          for f in scripts/*.sh; do
+            bash -n "$f"
+          done
+
+      - name: Check required files
+        run: |
+          test -f pm2/ecosystem.config.cjs
+          test -f config/project.env.sample
+          test -f contracts/VERSIONS.lock

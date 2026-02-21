@@ -1,0 +1,31 @@
+name: Update Upstreams
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "multi or core"
+        required: true
+        default: "multi"
+      ref:
+        description: "new ref/tag/branch"
+        required: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update lock ref
+        run: |
+          set -euo pipefail
+          ./scripts/update_refs.sh "${{ inputs.target }}" "${{ inputs.ref }}"
+
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(lock): bump ${{ inputs.target }} to ${{ inputs.ref }}"
+          title: "chore(lock): bump ${{ inputs.target }} to ${{ inputs.ref }}"
+          body: "Automated lock update. CI will validate refs and shell scripts."
+          branch: "chore/bump-${{ inputs.target }}-${{ inputs.ref }}"
