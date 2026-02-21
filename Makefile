@@ -1,4 +1,4 @@
-.PHONY: help install-binary bootstrap start stop restart status logs save smoke update-core
+.PHONY: help install-binary bootstrap start stop restart status logs save smoke update-core vcx-check vcx-conformance
 
 help:
 	@echo "Targets:"
@@ -12,6 +12,8 @@ help:
 	@echo "  make save                # pm2 save"
 	@echo "  make smoke               # API smoke test"
 	@echo "  make update-core REF=vX.Y.Z"
+	@echo "  make vcx-check           # cargo check VCX tooling workspace"
+	@echo "  make vcx-conformance     # run VCX conformance vectors"
 
 install-binary:
 	./scripts/install_binary.sh
@@ -43,3 +45,9 @@ smoke:
 update-core:
 	@test -n "$(REF)" || (echo "use: make update-core REF=vX.Y.Z" && exit 1)
 	./scripts/update_refs.sh core "$(REF)"
+
+vcx-check:
+	cd vcx-pack && cargo check --workspace
+
+vcx-conformance:
+	./scripts/vcx_conformance.sh --report-file docs/vcx/conformance/reports/latest.json

@@ -1,0 +1,16 @@
+{
+  "id": "vcx.v1.positive.three_payload_ic0_audio_vtt",
+  "version": "1.0",
+  "profile": "vcx-pack/v1",
+  "inputs": {
+    "manifest": "vcx-pack/examples/manifest.vcx.json",
+    "payloads": ["application/vcx-ic0t=docs/vcx/conformance/fixtures/payloads/tile14.ic0t","audio/opus=docs/vcx/conformance/fixtures/payloads/tile15.ic0t","text/vtt=docs/vcx/conformance/fixtures/payloads/tile16.ic0t"]
+  },
+  "operation": {
+    "build_strict_unc1": true,
+    "verify_full": true
+  },
+  "expected": {
+    "result": "pass"
+  }
+}

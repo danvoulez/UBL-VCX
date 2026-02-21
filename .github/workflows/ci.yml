@@ -45,3 +45,25 @@ jobs:
           test -f pm2/ecosystem.config.cjs
           test -f config/project.env.sample
           test -f contracts/VERSIONS.lock
+          test -f vcx-pack/Cargo.toml
+          test -f scripts/vcx_conformance.sh
+
+      - name: VCX workspace check
+        env:
+          CORE_REPO_TOKEN: ${{ secrets.CORE_REPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -n "${CORE_REPO_TOKEN:-}" ]; then
+            git config --global url."https://${CORE_REPO_TOKEN}@github.com/".insteadOf "https://github.com/"
+          fi
+
+          if (cd vcx-pack && cargo check --workspace); then
+            echo "[ok] vcx-pack workspace check passed"
+          else
+            if [ -z "${CORE_REPO_TOKEN:-}" ]; then
+              echo "[warn] vcx-pack check skipped/failing without CORE_REPO_TOKEN and private/internal CORE."
+              exit 0
+            fi
+            echo "[error] vcx-pack check failed with CORE_REPO_TOKEN configured."
+            exit 1
+          fi

@@ -1,0 +1,13 @@
+[package]
+name = "vcx_enc_cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = { workspace = true }
+blake3 = { workspace = true }
+clap = { workspace = true }
+hex = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+vcx_pack = { path = "../../crates/vcx_pack" }

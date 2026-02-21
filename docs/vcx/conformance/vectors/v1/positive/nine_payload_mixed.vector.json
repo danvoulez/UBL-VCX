@@ -1,0 +1,16 @@
+{
+  "id": "vcx.v1.positive.nine_payload_mixed",
+  "version": "1.0",
+  "profile": "vcx-pack/v1",
+  "inputs": {
+    "manifest": "vcx-pack/examples/manifest.vcx.json",
+    "payloads": ["application/vcx-ic0t=docs/vcx/conformance/fixtures/payloads/tile07.ic0t","application/vcx-sidecar=docs/vcx/conformance/fixtures/payloads/tile08.ic0t","audio/opus=docs/vcx/conformance/fixtures/payloads/tile09.ic0t","text/vtt=docs/vcx/conformance/fixtures/payloads/tile10.ic0t","application/vcx-ic0t=docs/vcx/conformance/fixtures/payloads/tile11.ic0t","text/vtt=docs/vcx/conformance/fixtures/payloads/tile12.ic0t","audio/opus=docs/vcx/conformance/fixtures/payloads/tile13.ic0t","application/vcx-sidecar=docs/vcx/conformance/fixtures/payloads/tile14.ic0t","application/vcx-ic0t=docs/vcx/conformance/fixtures/payloads/tile15.ic0t"]
+  },
+  "operation": {
+    "build_strict_unc1": true,
+    "verify_full": true
+  },
+  "expected": {
+    "result": "pass"
+  }
+}

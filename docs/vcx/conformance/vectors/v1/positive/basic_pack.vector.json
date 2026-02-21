@@ -1,0 +1,19 @@
+{
+  "id": "vcx.v1.positive.basic_pack",
+  "version": "1.0",
+  "profile": "vcx-pack/v1",
+  "inputs": {
+    "manifest": "vcx-pack/examples/manifest.vcx.json",
+    "payloads": [
+      "application/vcx-ic0t=vcx-pack/examples/payloads/tile0.ic0t"
+    ]
+  },
+  "operation": {
+    "build_strict_unc1": true,
+    "verify_full": true
+  },
+  "expected": {
+    "result": "pass",
+    "notes": "Pack builds and verifies with full payload hash/CID checks."
+  }
+}

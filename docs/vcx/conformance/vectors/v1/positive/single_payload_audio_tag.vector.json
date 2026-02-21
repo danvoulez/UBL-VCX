@@ -1,0 +1,16 @@
+{
+  "id": "vcx.v1.positive.single_payload_audio_tag",
+  "version": "1.0",
+  "profile": "vcx-pack/v1",
+  "inputs": {
+    "manifest": "vcx-pack/examples/manifest.vcx.json",
+    "payloads": ["audio/opus=docs/vcx/conformance/fixtures/payloads/tile15.ic0t"]
+  },
+  "operation": {
+    "build_strict_unc1": true,
+    "verify_full": true
+  },
+  "expected": {
+    "result": "pass"
+  }
+}

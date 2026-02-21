@@ -1,0 +1,18 @@
+{
+  "id": "vcx.v1.negative.payload_entry_out_of_region",
+  "version": "1.0",
+  "profile": "vcx-pack/v1",
+  "inputs": {
+    "base_vector": "vcx.v1.positive.basic_pack"
+  },
+  "mutation": {
+    "kind": "payload_entry_out_of_region"
+  },
+  "operation": {
+    "verify_full": false
+  },
+  "expected": {
+    "result": "fail",
+    "error": "PayloadEntryOutOfPayloadRegion"
+  }
+}

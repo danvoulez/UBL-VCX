@@ -1,0 +1,16 @@
+{
+  "id": "vcx.v1.positive.basic_pack_no_strict",
+  "version": "1.0",
+  "profile": "vcx-pack/v1",
+  "inputs": {
+    "manifest": "vcx-pack/examples/manifest.vcx.json",
+    "payloads": ["application/vcx-ic0t=docs/vcx/conformance/fixtures/payloads/tile02.ic0t"]
+  },
+  "operation": {
+    "build_strict_unc1": false,
+    "verify_full": true
+  },
+  "expected": {
+    "result": "pass"
+  }
+}

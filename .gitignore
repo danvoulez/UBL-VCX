@@ -4,6 +4,7 @@ bin/
 .logs/
 data/
 *.pid
+vcx-pack/target/
 
 # Secrets / local env
 config/project.env
