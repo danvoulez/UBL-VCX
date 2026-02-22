@@ -7,6 +7,7 @@ Official VCX thin-shell repository for running UBL in product context without ve
 - Runs as local PM2-managed process.
 - If `UBL-CORE` is private/internal, set `CORE_REPO_TOKEN` in `config/project.env`.
 - Contains VCX protocol tooling and conformance artifacts under `vcx-pack/` and `docs/vcx/`.
+- Publishes dual VCX distribution from one repo: standalone binaries and `ublx` complement package.
 
 ## Quick Start
 
@@ -49,3 +50,27 @@ cd vcx-pack
 cargo run -p vcx_pack_cli -- --help
 cargo run -p vcx_enc_cli -- --help
 ```
+
+## Dual Distribution (Standalone + ublx Complement)
+
+Build both artifact modes from one command:
+
+```bash
+make vcx-package VERSION=0.1.0
+```
+
+This generates:
+
+- `dist/ubl-vcx-binaries-v0.1.0-<target>.tar.gz`
+- `dist/ublx-extension-vcx-v0.1.0-<target>.tar.gz`
+
+Install complement locally (until `ublx` extension manager is finalized):
+
+```bash
+make vcx-install-extension ARTIFACT=dist/ublx-extension-vcx-v0.1.0-<target>.tar.gz
+```
+
+Reference docs:
+
+- `docs/vcx/VCX_DISTRIBUTION_MODEL.md`
+- `docs/RELEASE_MODEL.md`

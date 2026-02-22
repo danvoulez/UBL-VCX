@@ -5,6 +5,7 @@ bin/
 data/
 *.pid
 vcx-pack/target/
+dist/
 
 # Secrets / local env
 config/project.env

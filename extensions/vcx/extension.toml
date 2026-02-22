@@ -1,0 +1,21 @@
+schema_version = 1
+id = "vcx"
+name = "UBL VCX Toolkit"
+version = "0.0.0-dev"
+description = "VCX toolkit complement for ublx: deterministic pack/verify and encoder pipelines."
+license = "Apache-2.0"
+repository = "https://github.com/danvoulez/UBL-VCX"
+
+[compatibility]
+core = ">=0.1.0"
+ublx = ">=0.1.0"
+
+[[commands]]
+name = "vcx-pack"
+bin = "vcx_pack_cli"
+description = "Build and verify deterministic VCX packs."
+
+[[commands]]
+name = "vcx-enc"
+bin = "vcx_enc_cli"
+description = "Encode MP4/media inputs into deterministic VCX packs."

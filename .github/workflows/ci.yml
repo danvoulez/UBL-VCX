@@ -47,6 +47,9 @@ jobs:
           test -f contracts/VERSIONS.lock
           test -f vcx-pack/Cargo.toml
           test -f scripts/vcx_conformance.sh
+          test -f scripts/package_vcx_artifacts.sh
+          test -f scripts/install_vcx_extension.sh
+          test -f extensions/vcx/extension.toml
 
       - name: VCX workspace check
         env:

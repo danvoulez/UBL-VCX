@@ -6,6 +6,7 @@ VCX protocol, conformance, and standardization content for `UBL-VCX`.
 
 - `VCX_STANDARD_READINESS_CHECKLIST.md`
 - `VCX_STANDARD_STATUS.md`
+- `VCX_DISTRIBUTION_MODEL.md`
 - `VCX-Core.md`
 - `VCX-Realtime-Predictability-Protocol.md`
 - `VCX-Streaming-Editing-Protocol-v1.md`

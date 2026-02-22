@@ -1,0 +1,106 @@
+name: VCX Dual Release
+
+on:
+  push:
+    tags:
+      - "vcx-v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version (e.g. 0.1.0)"
+        required: true
+      tag:
+        description: "Release tag (default: vcx-v<version>)"
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Resolve version and target
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            version="${{ github.event.inputs.version }}"
+          else
+            version="${GITHUB_REF_NAME#vcx-v}"
+          fi
+          target="$(rustc -vV | awk '/host:/{print $2}')"
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+          echo "TARGET=$target" >> "$GITHUB_ENV"
+
+      - name: Configure private CORE access (optional)
+        if: ${{ secrets.CORE_REPO_TOKEN != '' }}
+        shell: bash
+        run: |
+          git config --global url."https://${{ secrets.CORE_REPO_TOKEN }}@github.com/".insteadOf "https://github.com/"
+
+      - name: Package VCX artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./scripts/package_vcx_artifacts.sh --version "$VERSION" --target "$TARGET" --mode all
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: vcx-artifacts-${{ matrix.os }}
+          path: |
+            dist/*.tar.gz
+            dist/*.tar.gz.sha256
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve release metadata
+        id: meta
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            version="${{ github.event.inputs.version }}"
+            tag="${{ github.event.inputs.tag }}"
+            if [ -z "$tag" ]; then
+              tag="vcx-v$version"
+            fi
+          else
+            tag="${GITHUB_REF_NAME}"
+            version="${GITHUB_REF_NAME#vcx-v}"
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: VCX ${{ steps.meta.outputs.version }}
+          files: |
+            dist/*.tar.gz
+            dist/*.tar.gz.sha256
+          generate_release_notes: true
